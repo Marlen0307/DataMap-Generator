@@ -16,7 +16,7 @@ export type FormattedParams = Map<string, FormattedParam>;
 
 export type FormatedMethods = Map<string, FormattedParams>;
 
-export class TranslatedService {
+export class FormattedService {
 	private spec: OpenApiSpec;
 	schemas: Map<string, Schema> = new Map();
 	title: string;
@@ -148,8 +148,5 @@ export class TranslatedService {
 
 	private buildSchemaPath(schemaName: string): string {
 		return `#/components/schemas/${schemaName}`;
-	}
-	private isValidSchemaPath(schemaPath: string): boolean {
-		return this.schemas.has(schemaPath);
 	}
 }
