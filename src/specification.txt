@@ -1,0 +1,806 @@
+service 'Customer Core API'{
+    path "/customers/{customerId}"{
+        method "put"{
+            parameters{
+                'customerId' : {
+                    'id' : string 'SENSITIVE'
+                }
+                'CustomerProfileUpdateRequestDto' : {
+                    'firstname' : string 'SENSITIVE'
+                    'lastname' : string 'SENSITIVE'
+                    'birthday' : string 'SENSITIVE'
+                    'streetAddress' : string 'SENSITIVE'
+                    'postalCode' : string 'SENSITIVE'
+                    'city' : string 'SENSITIVE'
+                    'email' : string 'SENSITIVE'
+                    'phoneNumber' : string 'SENSITIVE'
+                }
+                'CustomerResponseDto' : {
+                    'customerId' : string 'SENSITIVE'
+                    'firstname' : string 'SENSITIVE'
+                    'lastname' : string 'SENSITIVE'
+                    'birthday' : string 'SENSITIVE'
+                    'streetAddress' : string 'SENSITIVE'
+                    'postalCode' : string 'SENSITIVE'
+                    'city' : string 'SENSITIVE'
+                    'email' : string 'SENSITIVE'
+                    'phoneNumber' : string 'SENSITIVE'
+                    'moveHistory' : array 'SENSITIVE'
+                    'links' : array 'SENSITIVE'
+                }
+            }
+        }
+    }
+    path "/customers/{customerId}/address"{
+        method "put"{
+            parameters{
+                'customerId' : {
+                    'id' : string 'SENSITIVE'
+                }
+                'AddressDto' : {
+                    'streetAddress' : string 'SENSITIVE'
+                    'postalCode' : string 'SENSITIVE'
+                    'city' : string 'SENSITIVE'
+                }
+            }
+        }
+    }
+    path "/customers"{
+        method "get"{
+            parameters{
+                'filter' : string
+                'limit' : integer
+                'offset' : integer
+                'fields' : string
+                'PaginatedCustomerResponseDto' : {
+                    'filter' : string 'SENSITIVE'
+                    'limit' : integer 'SENSITIVE'
+                    'offset' : integer 'SENSITIVE'
+                    'size' : integer 'SENSITIVE'
+                    'customers' : array 'SENSITIVE'
+                    'links' : array 'SENSITIVE'
+                }
+            }
+        }
+        method "post"{
+            parameters{
+                'CustomerProfileUpdateRequestDto' : {
+                    'firstname' : string 'SENSITIVE'
+                    'lastname' : string 'SENSITIVE'
+                    'birthday' : string 'SENSITIVE'
+                    'streetAddress' : string 'SENSITIVE'
+                    'postalCode' : string 'SENSITIVE'
+                    'city' : string 'SENSITIVE'
+                    'email' : string 'SENSITIVE'
+                    'phoneNumber' : string 'SENSITIVE'
+                }
+                'CustomerResponseDto' : {
+                    'customerId' : string 'SENSITIVE'
+                    'firstname' : string 'SENSITIVE'
+                    'lastname' : string 'SENSITIVE'
+                    'birthday' : string 'SENSITIVE'
+                    'streetAddress' : string 'SENSITIVE'
+                    'postalCode' : string 'SENSITIVE'
+                    'city' : string 'SENSITIVE'
+                    'email' : string 'SENSITIVE'
+                    'phoneNumber' : string 'SENSITIVE'
+                    'moveHistory' : array 'SENSITIVE'
+                    'links' : array 'SENSITIVE'
+                }
+            }
+        }
+    }
+    path "/customers/{ids}"{
+        method "get"{
+            parameters{
+                'ids' : string
+                'fields' : string
+                'CustomersResponseDto' : {
+                    'customers' : array 'SENSITIVE'
+                    'links' : array 'SENSITIVE'
+                }
+            }
+        }
+    }
+    path "/cities/{postalCode}"{
+        method "get"{
+            parameters{
+                'postalCode' : string
+                'CitiesResponseDto' : {
+                    'cities' : array 'SENSITIVE'
+                }
+            }
+        }
+    }
+    path "/error"{
+        method "get"{
+            parameters{
+                'handleError_5_response_200' : object
+            }
+        }
+        method "put"{
+            parameters{
+                'handleError_response_200' : object
+            }
+        }
+        method "post"{
+            parameters{
+                'handleError_4_response_200' : object
+            }
+        }
+        method "delete"{
+            parameters{
+                'handleError_3_response_200' : object
+            }
+        }
+        method "options"{
+            parameters{
+                'handleError_6_response_200' : object
+            }
+        }
+        method "head"{
+            parameters{
+                'handleError_2_response_200' : object
+            }
+        }
+        method "patch"{
+            parameters{
+                'handleError_1_response_200' : object
+            }
+        }
+    }
+}
+service 'Customer Management API'{
+    path "/customers/{customerId}"{
+        method "get"{
+            parameters{
+                'customerId' : {
+                    'id' : string 'SENSITIVE'
+                }
+                'CustomerDto' : {
+                    'customerId' : string 'SENSITIVE'
+                    'firstname' : string 'SENSITIVE'
+                    'lastname' : string 'SENSITIVE'
+                    'birthday' : string 'SENSITIVE'
+                    'streetAddress' : string 'SENSITIVE'
+                    'postalCode' : string 'SENSITIVE'
+                    'city' : string 'SENSITIVE'
+                    'email' : string 'SENSITIVE'
+                    'phoneNumber' : string 'SENSITIVE'
+                    'moveHistory' : array 'SENSITIVE'
+                    'links' : array 'SENSITIVE'
+                }
+            }
+        }
+        method "put"{
+            parameters{
+                'customerId' : {
+                    'id' : string 'SENSITIVE'
+                }
+                'CustomerProfileDto' : {
+                    'firstname' : string 'SENSITIVE'
+                    'lastname' : string 'SENSITIVE'
+                    'birthday' : string 'SENSITIVE'
+                    'streetAddress' : string 'SENSITIVE'
+                    'postalCode' : string 'SENSITIVE'
+                    'city' : string 'SENSITIVE'
+                    'email' : string 'SENSITIVE'
+                    'phoneNumber' : string 'SENSITIVE'
+                    'moveHistory' : array 'SENSITIVE'
+                }
+                'CustomerDto' : {
+                    'customerId' : string 'SENSITIVE'
+                    'firstname' : string 'SENSITIVE'
+                    'lastname' : string 'SENSITIVE'
+                    'birthday' : string 'SENSITIVE'
+                    'streetAddress' : string 'SENSITIVE'
+                    'postalCode' : string 'SENSITIVE'
+                    'city' : string 'SENSITIVE'
+                    'email' : string 'SENSITIVE'
+                    'phoneNumber' : string 'SENSITIVE'
+                    'moveHistory' : array 'SENSITIVE'
+                    'links' : array 'SENSITIVE'
+                }
+            }
+        }
+    }
+    path "/interaction-logs/{customerId}"{
+        method "get"{
+            parameters{
+                'customerId' : {
+                    'id' : string 'SENSITIVE'
+                }
+                'InteractionLogAggregateRoot' : {
+                    'customerId' : string 'SENSITIVE'
+                    'username' : string 'SENSITIVE'
+                    'lastAcknowledgedInteractionId' : string 'SENSITIVE'
+                    'interactions' : array 'SENSITIVE'
+                    'numberOfUnacknowledgedInteractions' : integer 'SENSITIVE'
+                }
+            }
+        }
+        method "patch"{
+            parameters{
+                'customerId' : {
+                    'id' : string 'SENSITIVE'
+                }
+                'InteractionAcknowledgementDto' : {
+                    'lastAcknowledgedInteractionId' : string 'SENSITIVE'
+                }
+                'InteractionLogAggregateRoot' : {
+                    'customerId' : string 'SENSITIVE'
+                    'username' : string 'SENSITIVE'
+                    'lastAcknowledgedInteractionId' : string 'SENSITIVE'
+                    'interactions' : array 'SENSITIVE'
+                    'numberOfUnacknowledgedInteractions' : integer 'SENSITIVE'
+                }
+            }
+        }
+    }
+    path "/notifications"{
+        method "get"{
+            parameters{
+                'NotificationDto' : {
+                    'customerId' : string 'SENSITIVE'
+                    'username' : string 'SENSITIVE'
+                    'count' : integer 'SENSITIVE'
+                }[]
+            }
+        }
+    }
+    path "/customers"{
+        method "get"{
+            parameters{
+                'filter' : string
+                'limit' : integer
+                'offset' : integer
+                'PaginatedCustomerResponseDto' : {
+                    'filter' : string 'SENSITIVE'
+                    'limit' : integer 'SENSITIVE'
+                    'offset' : integer 'SENSITIVE'
+                    'size' : integer 'SENSITIVE'
+                    'customers' : array 'SENSITIVE'
+                    'links' : array 'SENSITIVE'
+                }
+            }
+        }
+    }
+    path "/error"{
+        method "get"{
+            parameters{
+                'handleError_5_response_200' : object
+            }
+        }
+        method "put"{
+            parameters{
+                'handleError_4_response_200' : object
+            }
+        }
+        method "post"{
+            parameters{
+                'handleError_response_200' : object
+            }
+        }
+        method "delete"{
+            parameters{
+                'handleError_3_response_200' : object
+            }
+        }
+        method "options"{
+            parameters{
+                'handleError_2_response_200' : object
+            }
+        }
+        method "head"{
+            parameters{
+                'handleError_6_response_200' : object
+            }
+        }
+        method "patch"{
+            parameters{
+                'handleError_1_response_200' : object
+            }
+        }
+    }
+}
+service 'Customer Self-Service API'{
+    path "/customers/{customerId}/address"{
+        method "put"{
+            parameters{
+                'customerId' : {
+                    'id' : string 'SENSITIVE'
+                }
+                'AddressDto' : {
+                    'streetAddress' : string 'SENSITIVE'
+                    'postalCode' : string 'SENSITIVE'
+                    'city' : string 'SENSITIVE'
+                }
+            }
+        }
+    }
+    path "/insurance-quote-requests"{
+        method "get"{
+            parameters{
+                'InsuranceQuoteRequestDto' : {
+                    'id' : integer 'SENSITIVE'
+                    'date' : string 'SENSITIVE'
+                    'statusHistory' : array 'SENSITIVE'
+                    'customerInfo' : undefined 'SENSITIVE'
+                    'insuranceOptions' : undefined 'SENSITIVE'
+                    'insuranceQuote' : undefined 'SENSITIVE'
+                    'policyId' : string 'SENSITIVE'
+                }[]
+            }
+        }
+        method "post"{
+            parameters{
+                'InsuranceQuoteRequestDto' : {
+                    'id' : integer 'SENSITIVE'
+                    'date' : string 'SENSITIVE'
+                    'statusHistory' : array 'SENSITIVE'
+                    'customerInfo' : undefined 'SENSITIVE'
+                    'insuranceOptions' : undefined 'SENSITIVE'
+                    'insuranceQuote' : undefined 'SENSITIVE'
+                    'policyId' : string 'SENSITIVE'
+                }
+            }
+        }
+    }
+    path "/customers"{
+        method "post"{
+            parameters{
+                'CustomerRegistrationRequestDto' : {
+                    'firstname' : string 'SENSITIVE'
+                    'lastname' : string 'SENSITIVE'
+                    'birthday' : string 'SENSITIVE'
+                    'city' : string 'SENSITIVE'
+                    'streetAddress' : string 'SENSITIVE'
+                    'postalCode' : string 'SENSITIVE'
+                    'phoneNumber' : string 'SENSITIVE'
+                }
+                'CustomerDto' : {
+                    'customerId' : string 'SENSITIVE'
+                    'firstname' : string 'SENSITIVE'
+                    'lastname' : string 'SENSITIVE'
+                    'birthday' : string 'SENSITIVE'
+                    'streetAddress' : string 'SENSITIVE'
+                    'postalCode' : string 'SENSITIVE'
+                    'city' : string 'SENSITIVE'
+                    'email' : string 'SENSITIVE'
+                    'phoneNumber' : string 'SENSITIVE'
+                    'moveHistory' : array 'SENSITIVE'
+                    'links' : array 'SENSITIVE'
+                }
+            }
+        }
+    }
+    path "/auth"{
+        method "post"{
+            parameters{
+                'AuthenticationRequestDto' : {
+                    'email' : string 'SENSITIVE'
+                    'password' : string 'SENSITIVE'
+                }
+                'AuthenticationResponseDto' : {
+                    'email' : string 'SENSITIVE'
+                    'token' : string 'SENSITIVE'
+                }
+            }
+        }
+    }
+    path "/auth/signup"{
+        method "post"{
+            parameters{
+                'SignupRequestDto' : {
+                    'email' : string 'SENSITIVE'
+                    'password' : string 'SENSITIVE'
+                }
+                'UserResponseDto' : {
+                    'email' : string 'SENSITIVE'
+                    'customerId' : string 'SENSITIVE'
+                }
+            }
+        }
+    }
+    path "/insurance-quote-requests/{id}"{
+        method "patch"{
+            parameters{
+                'id' : integer
+                'InsuranceQuoteResponseDto' : {
+                    'status' : string 'SENSITIVE'
+                    'expirationDate' : string 'SENSITIVE'
+                    'insurancePremium' : undefined 'SENSITIVE'
+                    'policyLimit' : undefined 'SENSITIVE'
+                }
+                'InsuranceQuoteRequestDto' : {
+                    'id' : integer 'SENSITIVE'
+                    'date' : string 'SENSITIVE'
+                    'statusHistory' : array 'SENSITIVE'
+                    'customerInfo' : undefined 'SENSITIVE'
+                    'insuranceOptions' : undefined 'SENSITIVE'
+                    'insuranceQuote' : undefined 'SENSITIVE'
+                    'policyId' : string 'SENSITIVE'
+                }
+            }
+        }
+    }
+    path "/user"{
+        method "get"{
+            parameters{
+                'UserResponseDto' : {
+                    'email' : string 'SENSITIVE'
+                    'customerId' : string 'SENSITIVE'
+                }
+            }
+        }
+    }
+    path "/insurance-quote-requests/{insuranceQuoteRequestId}"{
+        method "get"{
+            parameters{
+                'insuranceQuoteRequestId' : integer
+                'InsuranceQuoteRequestDto' : {
+                    'id' : integer 'SENSITIVE'
+                    'date' : string 'SENSITIVE'
+                    'statusHistory' : array 'SENSITIVE'
+                    'customerInfo' : undefined 'SENSITIVE'
+                    'insuranceOptions' : undefined 'SENSITIVE'
+                    'insuranceQuote' : undefined 'SENSITIVE'
+                    'policyId' : string 'SENSITIVE'
+                }
+            }
+        }
+    }
+    path "/customers/{customerId}"{
+        method "get"{
+            parameters{
+                'customerId' : {
+                    'id' : string 'SENSITIVE'
+                }
+                'CustomerDto' : {
+                    'customerId' : string 'SENSITIVE'
+                    'firstname' : string 'SENSITIVE'
+                    'lastname' : string 'SENSITIVE'
+                    'birthday' : string 'SENSITIVE'
+                    'streetAddress' : string 'SENSITIVE'
+                    'postalCode' : string 'SENSITIVE'
+                    'city' : string 'SENSITIVE'
+                    'email' : string 'SENSITIVE'
+                    'phoneNumber' : string 'SENSITIVE'
+                    'moveHistory' : array 'SENSITIVE'
+                    'links' : array 'SENSITIVE'
+                }
+            }
+        }
+    }
+    path "/customers/{customerId}/insurance-quote-requests"{
+        method "get"{
+            parameters{
+                'customerId' : {
+                    'id' : string 'SENSITIVE'
+                }
+                'InsuranceQuoteRequestDto' : {
+                    'id' : integer 'SENSITIVE'
+                    'date' : string 'SENSITIVE'
+                    'statusHistory' : array 'SENSITIVE'
+                    'customerInfo' : undefined 'SENSITIVE'
+                    'insuranceOptions' : undefined 'SENSITIVE'
+                    'insuranceQuote' : undefined 'SENSITIVE'
+                    'policyId' : string 'SENSITIVE'
+                }[]
+            }
+        }
+    }
+    path "/cities/{postalCode}"{
+        method "get"{
+            parameters{
+                'postalCode' : string
+                'CitiesResponseDto' : {
+                    'cities' : array 'SENSITIVE'
+                }
+            }
+        }
+    }
+    path "/error"{
+        method "get"{
+            parameters{
+                'handleError_2_response_200' : object
+            }
+        }
+        method "put"{
+            parameters{
+                'handleError_response_200' : object
+            }
+        }
+        method "post"{
+            parameters{
+                'handleError_1_response_200' : object
+            }
+        }
+        method "delete"{
+            parameters{
+                'handleError_6_response_200' : object
+            }
+        }
+        method "options"{
+            parameters{
+                'handleError_3_response_200' : object
+            }
+        }
+        method "head"{
+            parameters{
+                'handleError_4_response_200' : object
+            }
+        }
+        method "patch"{
+            parameters{
+                'handleError_5_response_200' : object
+            }
+        }
+    }
+}
+service 'PolicyManagement API'{
+    path "/policies/{policyId}"{
+        method "get"{
+            parameters{
+                'policyId' : {
+                    'id' : string 'SENSITIVE'
+                }
+                'expand' : string
+                'PolicyDto' : {
+                    'policyId' : string 'SENSITIVE'
+                    'customer' : object 'SENSITIVE'
+                    'creationDate' : string 'SENSITIVE'
+                    'policyPeriod' : undefined 'SENSITIVE'
+                    'policyType' : string 'SENSITIVE'
+                    'deductible' : undefined 'SENSITIVE'
+                    'policyLimit' : undefined 'SENSITIVE'
+                    'insurancePremium' : undefined 'SENSITIVE'
+                    'insuringAgreement' : undefined 'SENSITIVE'
+                    'links' : array 'SENSITIVE'
+                    '_expandable' : array 'SENSITIVE'
+                }
+            }
+        }
+        method "put"{
+            parameters{
+                'policyId' : {
+                    'id' : string 'SENSITIVE'
+                }
+                'CreatePolicyRequestDto' : {
+                    'customerId' : string 'SENSITIVE'
+                    'policyPeriod' : undefined 'SENSITIVE'
+                    'policyType' : string 'SENSITIVE'
+                    'deductible' : undefined 'SENSITIVE'
+                    'policyLimit' : undefined 'SENSITIVE'
+                    'insurancePremium' : undefined 'SENSITIVE'
+                    'insuringAgreement' : undefined 'SENSITIVE'
+                }
+                'PolicyDto' : {
+                    'policyId' : string 'SENSITIVE'
+                    'customer' : object 'SENSITIVE'
+                    'creationDate' : string 'SENSITIVE'
+                    'policyPeriod' : undefined 'SENSITIVE'
+                    'policyType' : string 'SENSITIVE'
+                    'deductible' : undefined 'SENSITIVE'
+                    'policyLimit' : undefined 'SENSITIVE'
+                    'insurancePremium' : undefined 'SENSITIVE'
+                    'insuringAgreement' : undefined 'SENSITIVE'
+                    'links' : array 'SENSITIVE'
+                    '_expandable' : array 'SENSITIVE'
+                }
+            }
+        }
+        method "delete"{
+            parameters{
+                'policyId' : {
+                    'id' : string 'SENSITIVE'
+                }
+            }
+        }
+    }
+    path "/riskfactor/compute"{
+        method "post"{
+            parameters{
+                'RiskFactorRequestDto' : {
+                    'birthday' : string 'SENSITIVE'
+                    'postalCode' : string 'SENSITIVE'
+                }
+                'RiskFactorResponseDto' : {
+                    'riskFactor' : integer 'SENSITIVE'
+                }
+            }
+        }
+    }
+    path "/policies"{
+        method "get"{
+            parameters{
+                'limit' : integer
+                'offset' : integer
+                'expand' : string
+                'PaginatedPolicyResponseDto' : {
+                    'limit' : integer 'SENSITIVE'
+                    'offset' : integer 'SENSITIVE'
+                    'size' : integer 'SENSITIVE'
+                    'policies' : array 'SENSITIVE'
+                    'links' : array 'SENSITIVE'
+                }
+            }
+        }
+        method "post"{
+            parameters{
+                'CreatePolicyRequestDto' : {
+                    'customerId' : string 'SENSITIVE'
+                    'policyPeriod' : undefined 'SENSITIVE'
+                    'policyType' : string 'SENSITIVE'
+                    'deductible' : undefined 'SENSITIVE'
+                    'policyLimit' : undefined 'SENSITIVE'
+                    'insurancePremium' : undefined 'SENSITIVE'
+                    'insuringAgreement' : undefined 'SENSITIVE'
+                }
+                'PolicyDto' : {
+                    'policyId' : string 'SENSITIVE'
+                    'customer' : object 'SENSITIVE'
+                    'creationDate' : string 'SENSITIVE'
+                    'policyPeriod' : undefined 'SENSITIVE'
+                    'policyType' : string 'SENSITIVE'
+                    'deductible' : undefined 'SENSITIVE'
+                    'policyLimit' : undefined 'SENSITIVE'
+                    'insurancePremium' : undefined 'SENSITIVE'
+                    'insuringAgreement' : undefined 'SENSITIVE'
+                    'links' : array 'SENSITIVE'
+                    '_expandable' : array 'SENSITIVE'
+                }
+            }
+        }
+    }
+    path "/insurance-quote-requests/{id}"{
+        method "get"{
+            parameters{
+                'id' : integer
+                'InsuranceQuoteRequestDto' : {
+                    'id' : integer 'SENSITIVE'
+                    'date' : string 'SENSITIVE'
+                    'statusHistory' : array 'SENSITIVE'
+                    'customerInfo' : undefined 'SENSITIVE'
+                    'insuranceOptions' : undefined 'SENSITIVE'
+                    'insuranceQuote' : undefined 'SENSITIVE'
+                    'policyId' : string 'SENSITIVE'
+                }
+            }
+        }
+        method "patch"{
+            parameters{
+                'id' : integer
+                'InsuranceQuoteResponseDto' : {
+                    'status' : string 'SENSITIVE'
+                    'expirationDate' : string 'SENSITIVE'
+                    'insurancePremium' : undefined 'SENSITIVE'
+                    'policyLimit' : undefined 'SENSITIVE'
+                }
+                'InsuranceQuoteRequestDto' : {
+                    'id' : integer 'SENSITIVE'
+                    'date' : string 'SENSITIVE'
+                    'statusHistory' : array 'SENSITIVE'
+                    'customerInfo' : undefined 'SENSITIVE'
+                    'insuranceOptions' : undefined 'SENSITIVE'
+                    'insuranceQuote' : undefined 'SENSITIVE'
+                    'policyId' : string 'SENSITIVE'
+                }
+            }
+        }
+    }
+    path "/insurance-quote-requests"{
+        method "get"{
+            parameters{
+                'InsuranceQuoteRequestDto' : {
+                    'id' : integer 'SENSITIVE'
+                    'date' : string 'SENSITIVE'
+                    'statusHistory' : array 'SENSITIVE'
+                    'customerInfo' : undefined 'SENSITIVE'
+                    'insuranceOptions' : undefined 'SENSITIVE'
+                    'insuranceQuote' : undefined 'SENSITIVE'
+                    'policyId' : string 'SENSITIVE'
+                }[]
+            }
+        }
+    }
+    path "/customers"{
+        method "get"{
+            parameters{
+                'filter' : string
+                'limit' : integer
+                'offset' : integer
+                'PaginatedCustomerResponseDto' : {
+                    'filter' : string 'SENSITIVE'
+                    'limit' : integer 'SENSITIVE'
+                    'offset' : integer 'SENSITIVE'
+                    'size' : integer 'SENSITIVE'
+                    'customers' : array 'SENSITIVE'
+                    'links' : array 'SENSITIVE'
+                }
+            }
+        }
+    }
+    path "/customers/{customerIdDto}"{
+        method "get"{
+            parameters{
+                'customerIdDto' : {
+                    'id' : string 'SENSITIVE'
+                }
+                'CustomerDto' : {
+                    'customerId' : string 'SENSITIVE'
+                    'firstname' : string 'SENSITIVE'
+                    'lastname' : string 'SENSITIVE'
+                    'birthday' : string 'SENSITIVE'
+                    'streetAddress' : string 'SENSITIVE'
+                    'postalCode' : string 'SENSITIVE'
+                    'city' : string 'SENSITIVE'
+                    'email' : string 'SENSITIVE'
+                    'phoneNumber' : string 'SENSITIVE'
+                    'moveHistory' : array 'SENSITIVE'
+                    'links' : array 'SENSITIVE'
+                }
+            }
+        }
+    }
+    path "/customers/{customerIdDto}/policies"{
+        method "get"{
+            parameters{
+                'customerIdDto' : {
+                    'id' : string 'SENSITIVE'
+                }
+                'expand' : string
+                'PolicyDto' : {
+                    'policyId' : string 'SENSITIVE'
+                    'customer' : object 'SENSITIVE'
+                    'creationDate' : string 'SENSITIVE'
+                    'policyPeriod' : undefined 'SENSITIVE'
+                    'policyType' : string 'SENSITIVE'
+                    'deductible' : undefined 'SENSITIVE'
+                    'policyLimit' : undefined 'SENSITIVE'
+                    'insurancePremium' : undefined 'SENSITIVE'
+                    'insuringAgreement' : undefined 'SENSITIVE'
+                    'links' : array 'SENSITIVE'
+                    '_expandable' : array 'SENSITIVE'
+                }[]
+            }
+        }
+    }
+    path "/error"{
+        method "get"{
+            parameters{
+                'handleError_1_response_200' : object
+            }
+        }
+        method "put"{
+            parameters{
+                'handleError_3_response_200' : object
+            }
+        }
+        method "post"{
+            parameters{
+                'handleError_response_200' : object
+            }
+        }
+        method "delete"{
+            parameters{
+                'handleError_6_response_200' : object
+            }
+        }
+        method "options"{
+            parameters{
+                'handleError_5_response_200' : object
+            }
+        }
+        method "head"{
+            parameters{
+                'handleError_4_response_200' : object
+            }
+        }
+        method "patch"{
+            parameters{
+                'handleError_2_response_200' : object
+            }
+        }
+    }
+}

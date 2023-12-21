@@ -1,0 +1,16 @@
+service 'Customer ManagementApi'{
+    path "/customers/{customerId}"{
+        method "PUT"{
+            parameters[
+                'customerId' : string
+                'CustomerUpdateDto' : {
+                    'name'* : string  'SENSITIVE',
+                    'email'* : string 'SENSITIVE'
+                    'phone'* : string 'SENSITIVE',
+                    'birthday'* : string 
+                    'streetAddress'* : string 'SENSITIVE',
+                }
+            ]
+        }
+    }
+}
