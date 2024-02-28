@@ -10,6 +10,7 @@ export interface FormattedParam {
 	format?: string;
 	description?: string;
 	schema?: Schema;
+	methodSummery?: string;
 }
 
 export type FormattedParams = Map<string, FormattedParam>;
@@ -30,7 +31,6 @@ export class FormattedService {
 	}
 	fillParameters() {
 		const paths = Object.keys(this.spec.paths);
-		const pathsMap: Map<string, FormatedMethods> = new Map();
 		paths.forEach((path) => {
 			const methods = Object.keys(this.spec.paths[path]);
 			const methodsMap: FormatedMethods = new Map();
@@ -41,13 +41,16 @@ export class FormattedService {
 					usedIn: ParamterPlace,
 					type: string,
 					schema: Schema,
+					description?: string,
 					format?: string
 				) => {
 					formattedParams.set(name, {
 						usedIn,
 						type,
 						format,
+						description,
 						schema,
+						methodSummery: this.spec.paths[path][method].summary,
 					});
 				};
 				const methodParams = this.spec.paths[path][method].parameters;
@@ -61,7 +64,8 @@ export class FormattedService {
 								param.name,
 								param.in as ParamterPlace, // in this case can only be 'path' or 'query'
 								'object', // in this case can only be 'object' since it is refering to a schema
-								schema
+								schema,
+								param?.description
 							);
 						} else {
 							//param is a primitive
@@ -70,6 +74,7 @@ export class FormattedService {
 								param.in as ParamterPlace, // in this case can only be 'path' or 'query'
 								param.schema.type,
 								undefined, // no schema since it is a primitive
+								param?.description,
 								param.schema.format
 							);
 						}
@@ -84,7 +89,13 @@ export class FormattedService {
 						if (schemaUrl) {
 							const schemaName = schemaUrl.split('/').pop();
 							const schema = this.schemas.get(schemaUrl);
-							addParamter(schemaName, 'requestBody', 'object', schema);
+							addParamter(
+								schemaName,
+								'requestBody',
+								'object',
+								schema,
+								schema.description
+							);
 						}
 					}
 				}
@@ -108,18 +119,31 @@ export class FormattedService {
 							if (schemaUrl) {
 								const schemaName = schemaUrl.split('/').pop();
 								const schema = this.schemas.get(schemaUrl);
-								addParamter(schemaName, 'responseBody', 'object', schema);
+								addParamter(
+									schemaName,
+									'responseBody',
+									'object',
+									schema,
+									schema.description
+								);
 							} else if (responseSchema.type === 'array') {
 								schemaUrl = responseSchema.items['$ref'];
 								const schemaName = schemaUrl.split('/').pop();
 								const schema = this.schemas.get(schemaUrl);
-								addParamter(schemaName, 'responseBody', 'array', schema);
+								addParamter(
+									schemaName,
+									'responseBody',
+									'array',
+									schema,
+									schema.description
+								);
 							} else {
 								addParamter(
 									`${operationId}_response_${code}`,
 									'responseBody',
 									responseSchema.type,
 									undefined,
+									'',
 									responseSchema.format
 								);
 							}

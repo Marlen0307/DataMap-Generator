@@ -10,24 +10,27 @@ import { Schema } from '../types/Schema';
 export class OpenAPIToDSLConverter {
 	private dsl: string;
 	private openApiSpec: OpenApiSpec;
+	formattedService: FormattedService;
 
 	constructor() {
 		this.dsl = '';
 	}
 
 	convertFormattedService(translatedService: FormattedService) {
+		this.formattedService = translatedService;
 		this.dsl += `service '${translatedService.title}'{\n`;
 
 		translatedService.paths.forEach((methods, path) => {
 			this.dsl += `    path "${path}"{\n`;
 
 			methods.forEach((params, method) => {
-				this.dsl += `        method "${method}"{\n`;
+				const methodSummery = params.entries().next().value[1].methodSummery;
+				this.dsl += `        method "${method}" | ${methodSummery} {\n`;
 
 				const parametersDSL = this.convertFormattedParams(params);
 				this.dsl += `            parameters{\n${parametersDSL}            }\n`;
 
-				this.dsl += '        }\n';
+				this.dsl += `        }\n`;
 			});
 
 			this.dsl += '    }\n';
@@ -40,9 +43,9 @@ export class OpenAPIToDSLConverter {
 		let paramsDSL = '';
 
 		params.forEach((param, paramName) => {
-			paramsDSL += `                '${paramName}' : ${this.convertFormattedParam(
-				param
-			)}\n`;
+			paramsDSL += `				'${paramName}' ${
+				param.description ? `| ${param.description}` : ''
+			} : ${this.convertFormattedParam(param)}\n`;
 		});
 
 		return paramsDSL;
@@ -56,35 +59,58 @@ export class OpenAPIToDSLConverter {
 		if (!param.schema && param.type === 'object') {
 			return param.type;
 		}
-
-		let paramDSL = `{`;
-
+		let paramDSL = '';
 		if (param.schema) {
-			paramDSL += `\n${this.convertSchema(param.schema)}`;
+			paramDSL += `${this.convertSchema(param.schema)}`;
 		}
 
-		paramDSL += `}`;
 		if (param.type === 'array') {
 			paramDSL += '[]';
 		}
-		return paramDSL;
+		return `${paramDSL}  `;
 	}
 
-	private convertSchema(schema: Schema): string {
+	private convertSchema(schema: Schema, indent = 5): string {
+		let paramDSL = `{\n`;
+		const indentString = '	'.repeat(indent);
 		if (schema.type === 'object' && schema.properties) {
 			// For object types with properties
 			const propertiesDSL = Object.entries(schema.properties)
 				.map(([propertyName, property]) => {
-					const sensitiveTag = " 'SENSITIVE'";
-					return `                    '${propertyName}' : ${property.type}${sensitiveTag}`;
+					return `${indentString}'${propertyName}' : ${this.convertProperty(
+						property,
+						indent + 1
+					)}`;
 				})
 				.join('\n');
 
-			return `${propertiesDSL}\n                `;
+			paramDSL += `${propertiesDSL}\n`;
+			paramDSL += `${indentString}}`;
+			return paramDSL;
 		} else {
 			// For primitive types or other cases
 			return `                ${schema.type}`;
 		}
+	}
+
+	private convertProperty(
+		property: {
+			type: string;
+			format?: string;
+			items?: object;
+		},
+		indent: number
+	) {
+		if (property.type === 'array') {
+			if (property.items['$ref']) {
+				return `${this.convertSchema(
+					this.formattedService.schemas.get(property.items['$ref']),
+					indent
+				)}[]`;
+			}
+		}
+
+		return `${property.type}`;
 	}
 
 	writeToFile(filePath: string) {

@@ -1,805 +1,1157 @@
 service 'Customer Core API'{
     path "/customers/{customerId}"{
-        method "put"{
+        method "put" | Update the profile of the customer with the given customer id {
             parameters{
-                'customerId' : {
-                    'id' : string 'SENSITIVE'
-                }
-                'CustomerProfileUpdateRequestDto' : {
-                    'firstname' : string 'SENSITIVE'
-                    'lastname' : string 'SENSITIVE'
-                    'birthday' : string 'SENSITIVE'
-                    'streetAddress' : string 'SENSITIVE'
-                    'postalCode' : string 'SENSITIVE'
-                    'city' : string 'SENSITIVE'
-                    'email' : string 'SENSITIVE'
-                    'phoneNumber' : string 'SENSITIVE'
-                }
-                'CustomerResponseDto' : {
-                    'customerId' : string 'SENSITIVE'
-                    'firstname' : string 'SENSITIVE'
-                    'lastname' : string 'SENSITIVE'
-                    'birthday' : string 'SENSITIVE'
-                    'streetAddress' : string 'SENSITIVE'
-                    'postalCode' : string 'SENSITIVE'
-                    'city' : string 'SENSITIVE'
-                    'email' : string 'SENSITIVE'
-                    'phoneNumber' : string 'SENSITIVE'
-                    'moveHistory' : array 'SENSITIVE'
-                    'links' : array 'SENSITIVE'
-                }
+				'customerId' | the customer's unique id : {
+					'id' : string
+					}  
+				'CustomerProfileUpdateRequestDto' | the customer's profile information : {
+					'firstname' : string
+					'lastname' : string
+					'birthday' : string
+					'streetAddress' : string
+					'postalCode' : string
+					'city' : string
+					'email' : string
+					'phoneNumber' : string
+					}  
+				'CustomerResponseDto'  : {
+					'customerId' : string
+					'firstname' : string
+					'lastname' : string
+					'birthday' : string
+					'streetAddress' : string
+					'postalCode' : string
+					'city' : string
+					'email' : string
+					'phoneNumber' : string
+					'moveHistory' : {
+						'streetAddress' : string
+						'postalCode' : string
+						'city' : string
+						}[]
+					'links' : {
+						'rel' : string
+						'href' : string
+						'hreflang' : string
+						'media' : string
+						'title' : string
+						'type' : string
+						'deprecation' : string
+						'profile' : string
+						'name' : string
+						}[]
+					}  
             }
         }
     }
     path "/customers/{customerId}/address"{
-        method "put"{
+        method "put" | Change a customer's address. {
             parameters{
-                'customerId' : {
-                    'id' : string 'SENSITIVE'
-                }
-                'AddressDto' : {
-                    'streetAddress' : string 'SENSITIVE'
-                    'postalCode' : string 'SENSITIVE'
-                    'city' : string 'SENSITIVE'
-                }
+				'customerId' | the customer's unique id : {
+					'id' : string
+					}  
+				'AddressDto' | the customer's new address : {
+					'streetAddress' : string
+					'postalCode' : string
+					'city' : string
+					}  
             }
         }
     }
     path "/customers"{
-        method "get"{
+        method "get" | Get all customers in pages of 10 entries per page. {
             parameters{
-                'filter' : string
-                'limit' : integer
-                'offset' : integer
-                'fields' : string
-                'PaginatedCustomerResponseDto' : {
-                    'filter' : string 'SENSITIVE'
-                    'limit' : integer 'SENSITIVE'
-                    'offset' : integer 'SENSITIVE'
-                    'size' : integer 'SENSITIVE'
-                    'customers' : array 'SENSITIVE'
-                    'links' : array 'SENSITIVE'
-                }
+				'filter' | search terms to filter the customers by name : string
+				'limit' | the maximum number of customers per page : integer
+				'offset' | the offset of the page's first customer : integer
+				'fields' | a comma-separated list of the fields that should be included in the response : string
+				'PaginatedCustomerResponseDto'  : {
+					'filter' : string
+					'limit' : integer
+					'offset' : integer
+					'size' : integer
+					'customers' : {
+						'customerId' : string
+						'firstname' : string
+						'lastname' : string
+						'birthday' : string
+						'streetAddress' : string
+						'postalCode' : string
+						'city' : string
+						'email' : string
+						'phoneNumber' : string
+						'moveHistory' : {
+							'streetAddress' : string
+							'postalCode' : string
+							'city' : string
+							}[]
+						'links' : {
+							'rel' : string
+							'href' : string
+							'hreflang' : string
+							'media' : string
+							'title' : string
+							'type' : string
+							'deprecation' : string
+							'profile' : string
+							'name' : string
+							}[]
+						}[]
+					'links' : {
+						'rel' : string
+						'href' : string
+						'hreflang' : string
+						'media' : string
+						'title' : string
+						'type' : string
+						'deprecation' : string
+						'profile' : string
+						'name' : string
+						}[]
+					}  
             }
         }
-        method "post"{
+        method "post" | Create a new customer. {
             parameters{
-                'CustomerProfileUpdateRequestDto' : {
-                    'firstname' : string 'SENSITIVE'
-                    'lastname' : string 'SENSITIVE'
-                    'birthday' : string 'SENSITIVE'
-                    'streetAddress' : string 'SENSITIVE'
-                    'postalCode' : string 'SENSITIVE'
-                    'city' : string 'SENSITIVE'
-                    'email' : string 'SENSITIVE'
-                    'phoneNumber' : string 'SENSITIVE'
-                }
-                'CustomerResponseDto' : {
-                    'customerId' : string 'SENSITIVE'
-                    'firstname' : string 'SENSITIVE'
-                    'lastname' : string 'SENSITIVE'
-                    'birthday' : string 'SENSITIVE'
-                    'streetAddress' : string 'SENSITIVE'
-                    'postalCode' : string 'SENSITIVE'
-                    'city' : string 'SENSITIVE'
-                    'email' : string 'SENSITIVE'
-                    'phoneNumber' : string 'SENSITIVE'
-                    'moveHistory' : array 'SENSITIVE'
-                    'links' : array 'SENSITIVE'
-                }
+				'CustomerProfileUpdateRequestDto' | the customer's profile information : {
+					'firstname' : string
+					'lastname' : string
+					'birthday' : string
+					'streetAddress' : string
+					'postalCode' : string
+					'city' : string
+					'email' : string
+					'phoneNumber' : string
+					}  
+				'CustomerResponseDto'  : {
+					'customerId' : string
+					'firstname' : string
+					'lastname' : string
+					'birthday' : string
+					'streetAddress' : string
+					'postalCode' : string
+					'city' : string
+					'email' : string
+					'phoneNumber' : string
+					'moveHistory' : {
+						'streetAddress' : string
+						'postalCode' : string
+						'city' : string
+						}[]
+					'links' : {
+						'rel' : string
+						'href' : string
+						'hreflang' : string
+						'media' : string
+						'title' : string
+						'type' : string
+						'deprecation' : string
+						'profile' : string
+						'name' : string
+						}[]
+					}  
             }
         }
     }
     path "/customers/{ids}"{
-        method "get"{
+        method "get" | Get a specific set of customers. {
             parameters{
-                'ids' : string
-                'fields' : string
-                'CustomersResponseDto' : {
-                    'customers' : array 'SENSITIVE'
-                    'links' : array 'SENSITIVE'
-                }
+				'ids' | a comma-separated list of customer ids : string
+				'fields' | a comma-separated list of the fields that should be included in the response : string
+				'CustomersResponseDto'  : {
+					'customers' : {
+						'customerId' : string
+						'firstname' : string
+						'lastname' : string
+						'birthday' : string
+						'streetAddress' : string
+						'postalCode' : string
+						'city' : string
+						'email' : string
+						'phoneNumber' : string
+						'moveHistory' : {
+							'streetAddress' : string
+							'postalCode' : string
+							'city' : string
+							}[]
+						'links' : {
+							'rel' : string
+							'href' : string
+							'hreflang' : string
+							'media' : string
+							'title' : string
+							'type' : string
+							'deprecation' : string
+							'profile' : string
+							'name' : string
+							}[]
+						}[]
+					'links' : {
+						'rel' : string
+						'href' : string
+						'hreflang' : string
+						'media' : string
+						'title' : string
+						'type' : string
+						'deprecation' : string
+						'profile' : string
+						'name' : string
+						}[]
+					}  
             }
         }
     }
     path "/cities/{postalCode}"{
-        method "get"{
+        method "get" | Get the cities for a particular postal code. {
             parameters{
-                'postalCode' : string
-                'CitiesResponseDto' : {
-                    'cities' : array 'SENSITIVE'
-                }
+				'postalCode' | the postal code : string
+				'CitiesResponseDto'  : {
+					'cities' : array
+					}  
             }
         }
     }
     path "/error"{
-        method "get"{
+        method "get" | undefined {
             parameters{
-                'handleError_5_response_200' : object
+				'handleError_4_response_200'  : object
             }
         }
-        method "put"{
+        method "put" | undefined {
             parameters{
-                'handleError_response_200' : object
+				'handleError_5_response_200'  : object
             }
         }
-        method "post"{
+        method "post" | undefined {
             parameters{
-                'handleError_4_response_200' : object
+				'handleError_6_response_200'  : object
             }
         }
-        method "delete"{
+        method "delete" | undefined {
             parameters{
-                'handleError_3_response_200' : object
+				'handleError_1_response_200'  : object
             }
         }
-        method "options"{
+        method "options" | undefined {
             parameters{
-                'handleError_6_response_200' : object
+				'handleError_2_response_200'  : object
             }
         }
-        method "head"{
+        method "head" | undefined {
             parameters{
-                'handleError_2_response_200' : object
+				'handleError_3_response_200'  : object
             }
         }
-        method "patch"{
+        method "patch" | undefined {
             parameters{
-                'handleError_1_response_200' : object
+				'handleError_response_200'  : object
             }
         }
     }
 }
 service 'Customer Management API'{
     path "/customers/{customerId}"{
-        method "get"{
+        method "get" | Get customer with a given customer id. {
             parameters{
-                'customerId' : {
-                    'id' : string 'SENSITIVE'
-                }
-                'CustomerDto' : {
-                    'customerId' : string 'SENSITIVE'
-                    'firstname' : string 'SENSITIVE'
-                    'lastname' : string 'SENSITIVE'
-                    'birthday' : string 'SENSITIVE'
-                    'streetAddress' : string 'SENSITIVE'
-                    'postalCode' : string 'SENSITIVE'
-                    'city' : string 'SENSITIVE'
-                    'email' : string 'SENSITIVE'
-                    'phoneNumber' : string 'SENSITIVE'
-                    'moveHistory' : array 'SENSITIVE'
-                    'links' : array 'SENSITIVE'
-                }
+				'customerId' | the customer's unique id : {
+					'id' : string
+					}  
+				'CustomerDto'  : {
+					'customerId' : string
+					'firstname' : string
+					'lastname' : string
+					'birthday' : string
+					'streetAddress' : string
+					'postalCode' : string
+					'city' : string
+					'email' : string
+					'phoneNumber' : string
+					'moveHistory' : {
+						'streetAddress' : string
+						'postalCode' : string
+						'city' : string
+						}[]
+					'links' : {
+						'rel' : string
+						'href' : string
+						'hreflang' : string
+						'media' : string
+						'title' : string
+						'type' : string
+						'deprecation' : string
+						'profile' : string
+						'name' : string
+						}[]
+					}  
             }
         }
-        method "put"{
+        method "put" | Update the profile of the customer with the given customer id {
             parameters{
-                'customerId' : {
-                    'id' : string 'SENSITIVE'
-                }
-                'CustomerProfileDto' : {
-                    'firstname' : string 'SENSITIVE'
-                    'lastname' : string 'SENSITIVE'
-                    'birthday' : string 'SENSITIVE'
-                    'streetAddress' : string 'SENSITIVE'
-                    'postalCode' : string 'SENSITIVE'
-                    'city' : string 'SENSITIVE'
-                    'email' : string 'SENSITIVE'
-                    'phoneNumber' : string 'SENSITIVE'
-                    'moveHistory' : array 'SENSITIVE'
-                }
-                'CustomerDto' : {
-                    'customerId' : string 'SENSITIVE'
-                    'firstname' : string 'SENSITIVE'
-                    'lastname' : string 'SENSITIVE'
-                    'birthday' : string 'SENSITIVE'
-                    'streetAddress' : string 'SENSITIVE'
-                    'postalCode' : string 'SENSITIVE'
-                    'city' : string 'SENSITIVE'
-                    'email' : string 'SENSITIVE'
-                    'phoneNumber' : string 'SENSITIVE'
-                    'moveHistory' : array 'SENSITIVE'
-                    'links' : array 'SENSITIVE'
-                }
+				'customerId' | the customer's unique id : {
+					'id' : string
+					}  
+				'CustomerProfileDto' | the customer's updated profile : {
+					'firstname' : string
+					'lastname' : string
+					'birthday' : string
+					'streetAddress' : string
+					'postalCode' : string
+					'city' : string
+					'email' : string
+					'phoneNumber' : string
+					'moveHistory' : {
+						'streetAddress' : string
+						'postalCode' : string
+						'city' : string
+						}[]
+					}  
+				'CustomerDto'  : {
+					'customerId' : string
+					'firstname' : string
+					'lastname' : string
+					'birthday' : string
+					'streetAddress' : string
+					'postalCode' : string
+					'city' : string
+					'email' : string
+					'phoneNumber' : string
+					'moveHistory' : {
+						'streetAddress' : string
+						'postalCode' : string
+						'city' : string
+						}[]
+					'links' : {
+						'rel' : string
+						'href' : string
+						'hreflang' : string
+						'media' : string
+						'title' : string
+						'type' : string
+						'deprecation' : string
+						'profile' : string
+						'name' : string
+						}[]
+					}  
             }
         }
     }
     path "/interaction-logs/{customerId}"{
-        method "get"{
+        method "get" | Get the interaction log for a customer with a given customer id. {
             parameters{
-                'customerId' : {
-                    'id' : string 'SENSITIVE'
-                }
-                'InteractionLogAggregateRoot' : {
-                    'customerId' : string 'SENSITIVE'
-                    'username' : string 'SENSITIVE'
-                    'lastAcknowledgedInteractionId' : string 'SENSITIVE'
-                    'interactions' : array 'SENSITIVE'
-                    'numberOfUnacknowledgedInteractions' : integer 'SENSITIVE'
-                }
+				'customerId' | the customer's unique id : {
+					'id' : string
+					}  
+				'InteractionLogAggregateRoot'  : {
+					'customerId' : string
+					'username' : string
+					'lastAcknowledgedInteractionId' : string
+					'interactions' : {
+						'id' : string
+						'date' : string
+						'content' : string
+						'sentByOperator' : boolean
+						}[]
+					'numberOfUnacknowledgedInteractions' : integer
+					}  
             }
         }
-        method "patch"{
+        method "patch" | Acknowledge all of a given customer's interactions up to the given interaction id. {
             parameters{
-                'customerId' : {
-                    'id' : string 'SENSITIVE'
-                }
-                'InteractionAcknowledgementDto' : {
-                    'lastAcknowledgedInteractionId' : string 'SENSITIVE'
-                }
-                'InteractionLogAggregateRoot' : {
-                    'customerId' : string 'SENSITIVE'
-                    'username' : string 'SENSITIVE'
-                    'lastAcknowledgedInteractionId' : string 'SENSITIVE'
-                    'interactions' : array 'SENSITIVE'
-                    'numberOfUnacknowledgedInteractions' : integer 'SENSITIVE'
-                }
+				'customerId' | the customer's unique id : {
+					'id' : string
+					}  
+				'InteractionAcknowledgementDto' | the id of the newest acknowledged interaction : {
+					'lastAcknowledgedInteractionId' : string
+					}  
+				'InteractionLogAggregateRoot'  : {
+					'customerId' : string
+					'username' : string
+					'lastAcknowledgedInteractionId' : string
+					'interactions' : {
+						'id' : string
+						'date' : string
+						'content' : string
+						'sentByOperator' : boolean
+						}[]
+					'numberOfUnacknowledgedInteractions' : integer
+					}  
             }
         }
     }
     path "/notifications"{
-        method "get"{
+        method "get" | Get a list of all unacknowledged notifications. {
             parameters{
-                'NotificationDto' : {
-                    'customerId' : string 'SENSITIVE'
-                    'username' : string 'SENSITIVE'
-                    'count' : integer 'SENSITIVE'
-                }[]
+				'NotificationDto'  : {
+					'customerId' : string
+					'username' : string
+					'count' : integer
+					}[]  
             }
         }
     }
     path "/customers"{
-        method "get"{
+        method "get" | Get all customers. {
             parameters{
-                'filter' : string
-                'limit' : integer
-                'offset' : integer
-                'PaginatedCustomerResponseDto' : {
-                    'filter' : string 'SENSITIVE'
-                    'limit' : integer 'SENSITIVE'
-                    'offset' : integer 'SENSITIVE'
-                    'size' : integer 'SENSITIVE'
-                    'customers' : array 'SENSITIVE'
-                    'links' : array 'SENSITIVE'
-                }
+				'filter' | search terms to filter the customers by name : string
+				'limit' | the maximum number of customers per page : integer
+				'offset' | the offset of the page's first customer : integer
+				'PaginatedCustomerResponseDto'  : {
+					'filter' : string
+					'limit' : integer
+					'offset' : integer
+					'size' : integer
+					'customers' : {
+						'customerId' : string
+						'firstname' : string
+						'lastname' : string
+						'birthday' : string
+						'streetAddress' : string
+						'postalCode' : string
+						'city' : string
+						'email' : string
+						'phoneNumber' : string
+						'moveHistory' : {
+							'streetAddress' : string
+							'postalCode' : string
+							'city' : string
+							}[]
+						'links' : {
+							'rel' : string
+							'href' : string
+							'hreflang' : string
+							'media' : string
+							'title' : string
+							'type' : string
+							'deprecation' : string
+							'profile' : string
+							'name' : string
+							}[]
+						}[]
+					'links' : {
+						'rel' : string
+						'href' : string
+						'hreflang' : string
+						'media' : string
+						'title' : string
+						'type' : string
+						'deprecation' : string
+						'profile' : string
+						'name' : string
+						}[]
+					}  
             }
         }
     }
     path "/error"{
-        method "get"{
+        method "get" | undefined {
             parameters{
-                'handleError_5_response_200' : object
+				'handleError_3_response_200'  : object
             }
         }
-        method "put"{
+        method "put" | undefined {
             parameters{
-                'handleError_4_response_200' : object
+				'handleError_5_response_200'  : object
             }
         }
-        method "post"{
+        method "post" | undefined {
             parameters{
-                'handleError_response_200' : object
+				'handleError_4_response_200'  : object
             }
         }
-        method "delete"{
+        method "delete" | undefined {
             parameters{
-                'handleError_3_response_200' : object
+				'handleError_1_response_200'  : object
             }
         }
-        method "options"{
+        method "options" | undefined {
             parameters{
-                'handleError_2_response_200' : object
+				'handleError_response_200'  : object
             }
         }
-        method "head"{
+        method "head" | undefined {
             parameters{
-                'handleError_6_response_200' : object
+				'handleError_6_response_200'  : object
             }
         }
-        method "patch"{
+        method "patch" | undefined {
             parameters{
-                'handleError_1_response_200' : object
+				'handleError_2_response_200'  : object
             }
         }
     }
 }
 service 'Customer Self-Service API'{
     path "/customers/{customerId}/address"{
-        method "put"{
+        method "put" | Change a customer's address. {
             parameters{
-                'customerId' : {
-                    'id' : string 'SENSITIVE'
-                }
-                'AddressDto' : {
-                    'streetAddress' : string 'SENSITIVE'
-                    'postalCode' : string 'SENSITIVE'
-                    'city' : string 'SENSITIVE'
-                }
+				'customerId' | the customer's unique id : {
+					'id' : string
+					}  
+				'AddressDto' | the customer's new address : {
+					'streetAddress' : string
+					'postalCode' : string
+					'city' : string
+					}  
             }
         }
     }
     path "/insurance-quote-requests"{
-        method "get"{
+        method "get" | Get all Insurance Quote Requests. {
             parameters{
-                'InsuranceQuoteRequestDto' : {
-                    'id' : integer 'SENSITIVE'
-                    'date' : string 'SENSITIVE'
-                    'statusHistory' : array 'SENSITIVE'
-                    'customerInfo' : undefined 'SENSITIVE'
-                    'insuranceOptions' : undefined 'SENSITIVE'
-                    'insuranceQuote' : undefined 'SENSITIVE'
-                    'policyId' : string 'SENSITIVE'
-                }[]
+				'InsuranceQuoteRequestDto' | the insurance quote request : {
+					'id' : integer
+					'date' : string
+					'statusHistory' : {
+						'date' : string
+						'status' : string
+						}[]
+					'customerInfo' : undefined
+					'insuranceOptions' : undefined
+					'insuranceQuote' : undefined
+					'policyId' : string
+					}[]  
             }
         }
-        method "post"{
+        method "post" | Create a new Insurance Quote Request. {
             parameters{
-                'InsuranceQuoteRequestDto' : {
-                    'id' : integer 'SENSITIVE'
-                    'date' : string 'SENSITIVE'
-                    'statusHistory' : array 'SENSITIVE'
-                    'customerInfo' : undefined 'SENSITIVE'
-                    'insuranceOptions' : undefined 'SENSITIVE'
-                    'insuranceQuote' : undefined 'SENSITIVE'
-                    'policyId' : string 'SENSITIVE'
-                }
+				'InsuranceQuoteRequestDto' | the insurance quote request : {
+					'id' : integer
+					'date' : string
+					'statusHistory' : {
+						'date' : string
+						'status' : string
+						}[]
+					'customerInfo' : undefined
+					'insuranceOptions' : undefined
+					'insuranceQuote' : undefined
+					'policyId' : string
+					}  
             }
         }
     }
     path "/customers"{
-        method "post"{
+        method "post" | Complete the registration of a new customer. {
             parameters{
-                'CustomerRegistrationRequestDto' : {
-                    'firstname' : string 'SENSITIVE'
-                    'lastname' : string 'SENSITIVE'
-                    'birthday' : string 'SENSITIVE'
-                    'city' : string 'SENSITIVE'
-                    'streetAddress' : string 'SENSITIVE'
-                    'postalCode' : string 'SENSITIVE'
-                    'phoneNumber' : string 'SENSITIVE'
-                }
-                'CustomerDto' : {
-                    'customerId' : string 'SENSITIVE'
-                    'firstname' : string 'SENSITIVE'
-                    'lastname' : string 'SENSITIVE'
-                    'birthday' : string 'SENSITIVE'
-                    'streetAddress' : string 'SENSITIVE'
-                    'postalCode' : string 'SENSITIVE'
-                    'city' : string 'SENSITIVE'
-                    'email' : string 'SENSITIVE'
-                    'phoneNumber' : string 'SENSITIVE'
-                    'moveHistory' : array 'SENSITIVE'
-                    'links' : array 'SENSITIVE'
-                }
+				'CustomerRegistrationRequestDto' | the customer's profile information : {
+					'firstname' : string
+					'lastname' : string
+					'birthday' : string
+					'city' : string
+					'streetAddress' : string
+					'postalCode' : string
+					'phoneNumber' : string
+					}  
+				'CustomerDto'  : {
+					'customerId' : string
+					'firstname' : string
+					'lastname' : string
+					'birthday' : string
+					'streetAddress' : string
+					'postalCode' : string
+					'city' : string
+					'email' : string
+					'phoneNumber' : string
+					'moveHistory' : {
+						'streetAddress' : string
+						'postalCode' : string
+						'city' : string
+						}[]
+					'links' : {
+						'rel' : string
+						'href' : string
+						'hreflang' : string
+						'media' : string
+						'title' : string
+						'type' : string
+						'deprecation' : string
+						'profile' : string
+						'name' : string
+						}[]
+					}  
             }
         }
     }
     path "/auth"{
-        method "post"{
+        method "post" | Authenticate a user based on a given email address and password. {
             parameters{
-                'AuthenticationRequestDto' : {
-                    'email' : string 'SENSITIVE'
-                    'password' : string 'SENSITIVE'
-                }
-                'AuthenticationResponseDto' : {
-                    'email' : string 'SENSITIVE'
-                    'token' : string 'SENSITIVE'
-                }
+				'AuthenticationRequestDto' | the email and password used to authenticate the user : {
+					'email' : string
+					'password' : string
+					}  
+				'AuthenticationResponseDto'  : {
+					'email' : string
+					'token' : string
+					}  
             }
         }
     }
     path "/auth/signup"{
-        method "post"{
+        method "post" | Create a new user. {
             parameters{
-                'SignupRequestDto' : {
-                    'email' : string 'SENSITIVE'
-                    'password' : string 'SENSITIVE'
-                }
-                'UserResponseDto' : {
-                    'email' : string 'SENSITIVE'
-                    'customerId' : string 'SENSITIVE'
-                }
+				'SignupRequestDto' | the email and password used to create a new user : {
+					'email' : string
+					'password' : string
+					}  
+				'UserResponseDto'  : {
+					'email' : string
+					'customerId' : string
+					}  
             }
         }
     }
     path "/insurance-quote-requests/{id}"{
-        method "patch"{
+        method "patch" | Updates the status of an existing Insurance Quote Request {
             parameters{
-                'id' : integer
-                'InsuranceQuoteResponseDto' : {
-                    'status' : string 'SENSITIVE'
-                    'expirationDate' : string 'SENSITIVE'
-                    'insurancePremium' : undefined 'SENSITIVE'
-                    'policyLimit' : undefined 'SENSITIVE'
-                }
-                'InsuranceQuoteRequestDto' : {
-                    'id' : integer 'SENSITIVE'
-                    'date' : string 'SENSITIVE'
-                    'statusHistory' : array 'SENSITIVE'
-                    'customerInfo' : undefined 'SENSITIVE'
-                    'insuranceOptions' : undefined 'SENSITIVE'
-                    'insuranceQuote' : undefined 'SENSITIVE'
-                    'policyId' : string 'SENSITIVE'
-                }
+				'id' | the insurance quote request's unique id : integer
+				'InsuranceQuoteResponseDto' | the response that contains the customer's decision whether to accept or reject an insurance quote : {
+					'status' : string
+					'expirationDate' : string
+					'insurancePremium' : undefined
+					'policyLimit' : undefined
+					}  
+				'InsuranceQuoteRequestDto' | the insurance quote request : {
+					'id' : integer
+					'date' : string
+					'statusHistory' : {
+						'date' : string
+						'status' : string
+						}[]
+					'customerInfo' : undefined
+					'insuranceOptions' : undefined
+					'insuranceQuote' : undefined
+					'policyId' : string
+					}  
             }
         }
     }
     path "/user"{
-        method "get"{
+        method "get" | Get the user details for the currently logged-in user. {
             parameters{
-                'UserResponseDto' : {
-                    'email' : string 'SENSITIVE'
-                    'customerId' : string 'SENSITIVE'
-                }
+				'UserResponseDto'  : {
+					'email' : string
+					'customerId' : string
+					}  
             }
         }
     }
     path "/insurance-quote-requests/{insuranceQuoteRequestId}"{
-        method "get"{
+        method "get" | Get a specific Insurance Quote Request. {
             parameters{
-                'insuranceQuoteRequestId' : integer
-                'InsuranceQuoteRequestDto' : {
-                    'id' : integer 'SENSITIVE'
-                    'date' : string 'SENSITIVE'
-                    'statusHistory' : array 'SENSITIVE'
-                    'customerInfo' : undefined 'SENSITIVE'
-                    'insuranceOptions' : undefined 'SENSITIVE'
-                    'insuranceQuote' : undefined 'SENSITIVE'
-                    'policyId' : string 'SENSITIVE'
-                }
+				'insuranceQuoteRequestId' | the insurance quote request's unique id : integer
+				'InsuranceQuoteRequestDto' | the insurance quote request : {
+					'id' : integer
+					'date' : string
+					'statusHistory' : {
+						'date' : string
+						'status' : string
+						}[]
+					'customerInfo' : undefined
+					'insuranceOptions' : undefined
+					'insuranceQuote' : undefined
+					'policyId' : string
+					}  
             }
         }
     }
     path "/customers/{customerId}"{
-        method "get"{
+        method "get" | Get customer with a given customer id. {
             parameters{
-                'customerId' : {
-                    'id' : string 'SENSITIVE'
-                }
-                'CustomerDto' : {
-                    'customerId' : string 'SENSITIVE'
-                    'firstname' : string 'SENSITIVE'
-                    'lastname' : string 'SENSITIVE'
-                    'birthday' : string 'SENSITIVE'
-                    'streetAddress' : string 'SENSITIVE'
-                    'postalCode' : string 'SENSITIVE'
-                    'city' : string 'SENSITIVE'
-                    'email' : string 'SENSITIVE'
-                    'phoneNumber' : string 'SENSITIVE'
-                    'moveHistory' : array 'SENSITIVE'
-                    'links' : array 'SENSITIVE'
-                }
+				'customerId' | the customer's unique id : {
+					'id' : string
+					}  
+				'CustomerDto'  : {
+					'customerId' : string
+					'firstname' : string
+					'lastname' : string
+					'birthday' : string
+					'streetAddress' : string
+					'postalCode' : string
+					'city' : string
+					'email' : string
+					'phoneNumber' : string
+					'moveHistory' : {
+						'streetAddress' : string
+						'postalCode' : string
+						'city' : string
+						}[]
+					'links' : {
+						'rel' : string
+						'href' : string
+						'hreflang' : string
+						'media' : string
+						'title' : string
+						'type' : string
+						'deprecation' : string
+						'profile' : string
+						'name' : string
+						}[]
+					}  
             }
         }
     }
     path "/customers/{customerId}/insurance-quote-requests"{
-        method "get"{
+        method "get" | Get a customer's insurance quote requests. {
             parameters{
-                'customerId' : {
-                    'id' : string 'SENSITIVE'
-                }
-                'InsuranceQuoteRequestDto' : {
-                    'id' : integer 'SENSITIVE'
-                    'date' : string 'SENSITIVE'
-                    'statusHistory' : array 'SENSITIVE'
-                    'customerInfo' : undefined 'SENSITIVE'
-                    'insuranceOptions' : undefined 'SENSITIVE'
-                    'insuranceQuote' : undefined 'SENSITIVE'
-                    'policyId' : string 'SENSITIVE'
-                }[]
+				'customerId' | the customer's unique id : {
+					'id' : string
+					}  
+				'InsuranceQuoteRequestDto' | the insurance quote request : {
+					'id' : integer
+					'date' : string
+					'statusHistory' : {
+						'date' : string
+						'status' : string
+						}[]
+					'customerInfo' : undefined
+					'insuranceOptions' : undefined
+					'insuranceQuote' : undefined
+					'policyId' : string
+					}[]  
             }
         }
     }
     path "/cities/{postalCode}"{
-        method "get"{
+        method "get" | Get the cities for a particular postal code. {
             parameters{
-                'postalCode' : string
-                'CitiesResponseDto' : {
-                    'cities' : array 'SENSITIVE'
-                }
+				'postalCode' | the postal code : string
+				'CitiesResponseDto'  : {
+					'cities' : array
+					}  
             }
         }
     }
     path "/error"{
-        method "get"{
+        method "get" | undefined {
             parameters{
-                'handleError_2_response_200' : object
+				'handleError_5_response_200'  : object
             }
         }
-        method "put"{
+        method "put" | undefined {
             parameters{
-                'handleError_response_200' : object
+				'handleError_3_response_200'  : object
             }
         }
-        method "post"{
+        method "post" | undefined {
             parameters{
-                'handleError_1_response_200' : object
+				'handleError_6_response_200'  : object
             }
         }
-        method "delete"{
+        method "delete" | undefined {
             parameters{
-                'handleError_6_response_200' : object
+				'handleError_4_response_200'  : object
             }
         }
-        method "options"{
+        method "options" | undefined {
             parameters{
-                'handleError_3_response_200' : object
+				'handleError_response_200'  : object
             }
         }
-        method "head"{
+        method "head" | undefined {
             parameters{
-                'handleError_4_response_200' : object
+				'handleError_1_response_200'  : object
             }
         }
-        method "patch"{
+        method "patch" | undefined {
             parameters{
-                'handleError_5_response_200' : object
+				'handleError_2_response_200'  : object
             }
         }
     }
 }
 service 'PolicyManagement API'{
     path "/policies/{policyId}"{
-        method "get"{
+        method "get" | Get a single policy. {
             parameters{
-                'policyId' : {
-                    'id' : string 'SENSITIVE'
-                }
-                'expand' : string
-                'PolicyDto' : {
-                    'policyId' : string 'SENSITIVE'
-                    'customer' : object 'SENSITIVE'
-                    'creationDate' : string 'SENSITIVE'
-                    'policyPeriod' : undefined 'SENSITIVE'
-                    'policyType' : string 'SENSITIVE'
-                    'deductible' : undefined 'SENSITIVE'
-                    'policyLimit' : undefined 'SENSITIVE'
-                    'insurancePremium' : undefined 'SENSITIVE'
-                    'insuringAgreement' : undefined 'SENSITIVE'
-                    'links' : array 'SENSITIVE'
-                    '_expandable' : array 'SENSITIVE'
-                }
+				'policyId' | the policy's unique id : {
+					'id' : string
+					}  
+				'expand' | a comma-separated list of the fields that should be expanded in the response : string
+				'PolicyDto'  : {
+					'policyId' : string
+					'customer' : object
+					'creationDate' : string
+					'policyPeriod' : undefined
+					'policyType' : string
+					'deductible' : undefined
+					'policyLimit' : undefined
+					'insurancePremium' : undefined
+					'insuringAgreement' : undefined
+					'links' : {
+						'rel' : string
+						'href' : string
+						'hreflang' : string
+						'media' : string
+						'title' : string
+						'type' : string
+						'deprecation' : string
+						'profile' : string
+						'name' : string
+						}[]
+					'_expandable' : array
+					}  
             }
         }
-        method "put"{
+        method "put" | Update an existing policy. {
             parameters{
-                'policyId' : {
-                    'id' : string 'SENSITIVE'
-                }
-                'CreatePolicyRequestDto' : {
-                    'customerId' : string 'SENSITIVE'
-                    'policyPeriod' : undefined 'SENSITIVE'
-                    'policyType' : string 'SENSITIVE'
-                    'deductible' : undefined 'SENSITIVE'
-                    'policyLimit' : undefined 'SENSITIVE'
-                    'insurancePremium' : undefined 'SENSITIVE'
-                    'insuringAgreement' : undefined 'SENSITIVE'
-                }
-                'PolicyDto' : {
-                    'policyId' : string 'SENSITIVE'
-                    'customer' : object 'SENSITIVE'
-                    'creationDate' : string 'SENSITIVE'
-                    'policyPeriod' : undefined 'SENSITIVE'
-                    'policyType' : string 'SENSITIVE'
-                    'deductible' : undefined 'SENSITIVE'
-                    'policyLimit' : undefined 'SENSITIVE'
-                    'insurancePremium' : undefined 'SENSITIVE'
-                    'insuringAgreement' : undefined 'SENSITIVE'
-                    'links' : array 'SENSITIVE'
-                    '_expandable' : array 'SENSITIVE'
-                }
+				'policyId' | the policy's unique id : {
+					'id' : string
+					}  
+				'CreatePolicyRequestDto' | the policy that is to be added : {
+					'customerId' : string
+					'policyPeriod' : undefined
+					'policyType' : string
+					'deductible' : undefined
+					'policyLimit' : undefined
+					'insurancePremium' : undefined
+					'insuringAgreement' : undefined
+					}  
+				'PolicyDto'  : {
+					'policyId' : string
+					'customer' : object
+					'creationDate' : string
+					'policyPeriod' : undefined
+					'policyType' : string
+					'deductible' : undefined
+					'policyLimit' : undefined
+					'insurancePremium' : undefined
+					'insuringAgreement' : undefined
+					'links' : {
+						'rel' : string
+						'href' : string
+						'hreflang' : string
+						'media' : string
+						'title' : string
+						'type' : string
+						'deprecation' : string
+						'profile' : string
+						'name' : string
+						}[]
+					'_expandable' : array
+					}  
             }
         }
-        method "delete"{
+        method "delete" | Delete an existing policy. {
             parameters{
-                'policyId' : {
-                    'id' : string 'SENSITIVE'
-                }
+				'policyId' | the policy's unique id : {
+					'id' : string
+					}  
             }
         }
     }
     path "/riskfactor/compute"{
-        method "post"{
+        method "post" | Computes the risk factor for a given customer. {
             parameters{
-                'RiskFactorRequestDto' : {
-                    'birthday' : string 'SENSITIVE'
-                    'postalCode' : string 'SENSITIVE'
-                }
-                'RiskFactorResponseDto' : {
-                    'riskFactor' : integer 'SENSITIVE'
-                }
+				'RiskFactorRequestDto' | the request containing relevant customer attributes (e.g., postal code, birthday) : {
+					'birthday' : string
+					'postalCode' : string
+					}  
+				'RiskFactorResponseDto'  : {
+					'riskFactor' : integer
+					}  
             }
         }
     }
     path "/policies"{
-        method "get"{
+        method "get" | Get all policies, newest first. {
             parameters{
-                'limit' : integer
-                'offset' : integer
-                'expand' : string
-                'PaginatedPolicyResponseDto' : {
-                    'limit' : integer 'SENSITIVE'
-                    'offset' : integer 'SENSITIVE'
-                    'size' : integer 'SENSITIVE'
-                    'policies' : array 'SENSITIVE'
-                    'links' : array 'SENSITIVE'
-                }
+				'limit' | the maximum number of policies per page : integer
+				'offset' | the offset of the page's first policy : integer
+				'expand' | a comma-separated list of the fields that should be expanded in the response : string
+				'PaginatedPolicyResponseDto'  : {
+					'limit' : integer
+					'offset' : integer
+					'size' : integer
+					'policies' : {
+						'policyId' : string
+						'customer' : object
+						'creationDate' : string
+						'policyPeriod' : undefined
+						'policyType' : string
+						'deductible' : undefined
+						'policyLimit' : undefined
+						'insurancePremium' : undefined
+						'insuringAgreement' : undefined
+						'links' : {
+							'rel' : string
+							'href' : string
+							'hreflang' : string
+							'media' : string
+							'title' : string
+							'type' : string
+							'deprecation' : string
+							'profile' : string
+							'name' : string
+							}[]
+						'_expandable' : array
+						}[]
+					'links' : {
+						'rel' : string
+						'href' : string
+						'hreflang' : string
+						'media' : string
+						'title' : string
+						'type' : string
+						'deprecation' : string
+						'profile' : string
+						'name' : string
+						}[]
+					}  
             }
         }
-        method "post"{
+        method "post" | Create a new policy. {
             parameters{
-                'CreatePolicyRequestDto' : {
-                    'customerId' : string 'SENSITIVE'
-                    'policyPeriod' : undefined 'SENSITIVE'
-                    'policyType' : string 'SENSITIVE'
-                    'deductible' : undefined 'SENSITIVE'
-                    'policyLimit' : undefined 'SENSITIVE'
-                    'insurancePremium' : undefined 'SENSITIVE'
-                    'insuringAgreement' : undefined 'SENSITIVE'
-                }
-                'PolicyDto' : {
-                    'policyId' : string 'SENSITIVE'
-                    'customer' : object 'SENSITIVE'
-                    'creationDate' : string 'SENSITIVE'
-                    'policyPeriod' : undefined 'SENSITIVE'
-                    'policyType' : string 'SENSITIVE'
-                    'deductible' : undefined 'SENSITIVE'
-                    'policyLimit' : undefined 'SENSITIVE'
-                    'insurancePremium' : undefined 'SENSITIVE'
-                    'insuringAgreement' : undefined 'SENSITIVE'
-                    'links' : array 'SENSITIVE'
-                    '_expandable' : array 'SENSITIVE'
-                }
+				'CreatePolicyRequestDto' | the policy that is to be added : {
+					'customerId' : string
+					'policyPeriod' : undefined
+					'policyType' : string
+					'deductible' : undefined
+					'policyLimit' : undefined
+					'insurancePremium' : undefined
+					'insuringAgreement' : undefined
+					}  
+				'PolicyDto'  : {
+					'policyId' : string
+					'customer' : object
+					'creationDate' : string
+					'policyPeriod' : undefined
+					'policyType' : string
+					'deductible' : undefined
+					'policyLimit' : undefined
+					'insurancePremium' : undefined
+					'insuringAgreement' : undefined
+					'links' : {
+						'rel' : string
+						'href' : string
+						'hreflang' : string
+						'media' : string
+						'title' : string
+						'type' : string
+						'deprecation' : string
+						'profile' : string
+						'name' : string
+						}[]
+					'_expandable' : array
+					}  
             }
         }
     }
     path "/insurance-quote-requests/{id}"{
-        method "get"{
+        method "get" | Get a specific Insurance Quote Request. {
             parameters{
-                'id' : integer
-                'InsuranceQuoteRequestDto' : {
-                    'id' : integer 'SENSITIVE'
-                    'date' : string 'SENSITIVE'
-                    'statusHistory' : array 'SENSITIVE'
-                    'customerInfo' : undefined 'SENSITIVE'
-                    'insuranceOptions' : undefined 'SENSITIVE'
-                    'insuranceQuote' : undefined 'SENSITIVE'
-                    'policyId' : string 'SENSITIVE'
-                }
+				'id' | the insurance quote request's unique id : integer
+				'InsuranceQuoteRequestDto'  : {
+					'id' : integer
+					'date' : string
+					'statusHistory' : {
+						'date' : string
+						'status' : string
+						}[]
+					'customerInfo' : undefined
+					'insuranceOptions' : undefined
+					'insuranceQuote' : undefined
+					'policyId' : string
+					}  
             }
         }
-        method "patch"{
+        method "patch" | Updates the status of an existing Insurance Quote Request {
             parameters{
-                'id' : integer
-                'InsuranceQuoteResponseDto' : {
-                    'status' : string 'SENSITIVE'
-                    'expirationDate' : string 'SENSITIVE'
-                    'insurancePremium' : undefined 'SENSITIVE'
-                    'policyLimit' : undefined 'SENSITIVE'
-                }
-                'InsuranceQuoteRequestDto' : {
-                    'id' : integer 'SENSITIVE'
-                    'date' : string 'SENSITIVE'
-                    'statusHistory' : array 'SENSITIVE'
-                    'customerInfo' : undefined 'SENSITIVE'
-                    'insuranceOptions' : undefined 'SENSITIVE'
-                    'insuranceQuote' : undefined 'SENSITIVE'
-                    'policyId' : string 'SENSITIVE'
-                }
+				'id' | the insurance quote request's unique id : integer
+				'InsuranceQuoteResponseDto' | the response that contains a new insurance quote if the request has been accepted : {
+					'status' : string
+					'expirationDate' : string
+					'insurancePremium' : undefined
+					'policyLimit' : undefined
+					}  
+				'InsuranceQuoteRequestDto'  : {
+					'id' : integer
+					'date' : string
+					'statusHistory' : {
+						'date' : string
+						'status' : string
+						}[]
+					'customerInfo' : undefined
+					'insuranceOptions' : undefined
+					'insuranceQuote' : undefined
+					'policyId' : string
+					}  
             }
         }
     }
     path "/insurance-quote-requests"{
-        method "get"{
+        method "get" | Get all Insurance Quote Requests. {
             parameters{
-                'InsuranceQuoteRequestDto' : {
-                    'id' : integer 'SENSITIVE'
-                    'date' : string 'SENSITIVE'
-                    'statusHistory' : array 'SENSITIVE'
-                    'customerInfo' : undefined 'SENSITIVE'
-                    'insuranceOptions' : undefined 'SENSITIVE'
-                    'insuranceQuote' : undefined 'SENSITIVE'
-                    'policyId' : string 'SENSITIVE'
-                }[]
+				'InsuranceQuoteRequestDto'  : {
+					'id' : integer
+					'date' : string
+					'statusHistory' : {
+						'date' : string
+						'status' : string
+						}[]
+					'customerInfo' : undefined
+					'insuranceOptions' : undefined
+					'insuranceQuote' : undefined
+					'policyId' : string
+					}[]  
             }
         }
     }
     path "/customers"{
-        method "get"{
+        method "get" | Get all customers. {
             parameters{
-                'filter' : string
-                'limit' : integer
-                'offset' : integer
-                'PaginatedCustomerResponseDto' : {
-                    'filter' : string 'SENSITIVE'
-                    'limit' : integer 'SENSITIVE'
-                    'offset' : integer 'SENSITIVE'
-                    'size' : integer 'SENSITIVE'
-                    'customers' : array 'SENSITIVE'
-                    'links' : array 'SENSITIVE'
-                }
+				'filter' | search terms to filter the customers by name : string
+				'limit' | the maximum number of customers per page : integer
+				'offset' | the offset of the page's first customer : integer
+				'PaginatedCustomerResponseDto'  : {
+					'filter' : string
+					'limit' : integer
+					'offset' : integer
+					'size' : integer
+					'customers' : {
+						'customerId' : string
+						'firstname' : string
+						'lastname' : string
+						'birthday' : string
+						'streetAddress' : string
+						'postalCode' : string
+						'city' : string
+						'email' : string
+						'phoneNumber' : string
+						'moveHistory' : {
+							'streetAddress' : string
+							'postalCode' : string
+							'city' : string
+							}[]
+						'links' : {
+							'rel' : string
+							'href' : string
+							'hreflang' : string
+							'media' : string
+							'title' : string
+							'type' : string
+							'deprecation' : string
+							'profile' : string
+							'name' : string
+							}[]
+						}[]
+					'links' : {
+						'rel' : string
+						'href' : string
+						'hreflang' : string
+						'media' : string
+						'title' : string
+						'type' : string
+						'deprecation' : string
+						'profile' : string
+						'name' : string
+						}[]
+					}  
             }
         }
     }
     path "/customers/{customerIdDto}"{
-        method "get"{
+        method "get" | Get customer with a given customer id. {
             parameters{
-                'customerIdDto' : {
-                    'id' : string 'SENSITIVE'
-                }
-                'CustomerDto' : {
-                    'customerId' : string 'SENSITIVE'
-                    'firstname' : string 'SENSITIVE'
-                    'lastname' : string 'SENSITIVE'
-                    'birthday' : string 'SENSITIVE'
-                    'streetAddress' : string 'SENSITIVE'
-                    'postalCode' : string 'SENSITIVE'
-                    'city' : string 'SENSITIVE'
-                    'email' : string 'SENSITIVE'
-                    'phoneNumber' : string 'SENSITIVE'
-                    'moveHistory' : array 'SENSITIVE'
-                    'links' : array 'SENSITIVE'
-                }
+				'customerIdDto' | the customer's unique id : {
+					'id' : string
+					}  
+				'CustomerDto'  : {
+					'customerId' : string
+					'firstname' : string
+					'lastname' : string
+					'birthday' : string
+					'streetAddress' : string
+					'postalCode' : string
+					'city' : string
+					'email' : string
+					'phoneNumber' : string
+					'moveHistory' : {
+						'streetAddress' : string
+						'postalCode' : string
+						'city' : string
+						}[]
+					'links' : {
+						'rel' : string
+						'href' : string
+						'hreflang' : string
+						'media' : string
+						'title' : string
+						'type' : string
+						'deprecation' : string
+						'profile' : string
+						'name' : string
+						}[]
+					}  
             }
         }
     }
     path "/customers/{customerIdDto}/policies"{
-        method "get"{
+        method "get" | Get a customer's policies. {
             parameters{
-                'customerIdDto' : {
-                    'id' : string 'SENSITIVE'
-                }
-                'expand' : string
-                'PolicyDto' : {
-                    'policyId' : string 'SENSITIVE'
-                    'customer' : object 'SENSITIVE'
-                    'creationDate' : string 'SENSITIVE'
-                    'policyPeriod' : undefined 'SENSITIVE'
-                    'policyType' : string 'SENSITIVE'
-                    'deductible' : undefined 'SENSITIVE'
-                    'policyLimit' : undefined 'SENSITIVE'
-                    'insurancePremium' : undefined 'SENSITIVE'
-                    'insuringAgreement' : undefined 'SENSITIVE'
-                    'links' : array 'SENSITIVE'
-                    '_expandable' : array 'SENSITIVE'
-                }[]
+				'customerIdDto' | the customer's unique id : {
+					'id' : string
+					}  
+				'expand' | a comma-separated list of the fields that should be expanded in the response : string
+				'PolicyDto'  : {
+					'policyId' : string
+					'customer' : object
+					'creationDate' : string
+					'policyPeriod' : undefined
+					'policyType' : string
+					'deductible' : undefined
+					'policyLimit' : undefined
+					'insurancePremium' : undefined
+					'insuringAgreement' : undefined
+					'links' : {
+						'rel' : string
+						'href' : string
+						'hreflang' : string
+						'media' : string
+						'title' : string
+						'type' : string
+						'deprecation' : string
+						'profile' : string
+						'name' : string
+						}[]
+					'_expandable' : array
+					}[]  
             }
         }
     }
     path "/error"{
-        method "get"{
+        method "get" | undefined {
             parameters{
-                'handleError_1_response_200' : object
+				'handleError_2_response_200'  : object
             }
         }
-        method "put"{
+        method "put" | undefined {
             parameters{
-                'handleError_3_response_200' : object
+				'handleError_4_response_200'  : object
             }
         }
-        method "post"{
+        method "post" | undefined {
             parameters{
-                'handleError_response_200' : object
+				'handleError_3_response_200'  : object
             }
         }
-        method "delete"{
+        method "delete" | undefined {
             parameters{
-                'handleError_6_response_200' : object
+				'handleError_response_200'  : object
             }
         }
-        method "options"{
+        method "options" | undefined {
             parameters{
-                'handleError_5_response_200' : object
+				'handleError_6_response_200'  : object
             }
         }
-        method "head"{
+        method "head" | undefined {
             parameters{
-                'handleError_4_response_200' : object
+				'handleError_1_response_200'  : object
             }
         }
-        method "patch"{
+        method "patch" | undefined {
             parameters{
-                'handleError_2_response_200' : object
+				'handleError_5_response_200'  : object
             }
         }
     }
