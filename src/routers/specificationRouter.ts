@@ -13,10 +13,9 @@ router.get('/', (req, res) => {
 
 router.post('/generate', (req, res) => {
 	const { body } = req;
-	console.log({ body });
 
-	const { urls } = body;
-	return specificationService.generateSpecification(res, urls);
+	const { urls, fileName } = body;
+	return specificationService.generateSpecification(res, urls, fileName);
 });
 
 export default router;

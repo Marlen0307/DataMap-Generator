@@ -11,7 +11,11 @@ import { FormattedService } from '../models/FormattedService';
 export class SpecificationService {
 	constructor() {}
 
-	async generateSpecification(res: Response, urls: string[]) {
+	async generateSpecification(
+		res: Response,
+		urls: string[],
+		fileName?: string
+	) {
 		const dslWriter = new OpenAPIToDSLConverter();
 		for (const url of urls) {
 			const response: OpenApiSpec = await HttpService.get(url);
@@ -19,7 +23,11 @@ export class SpecificationService {
 
 			dslWriter.convertFormattedService(formattedService);
 		}
-		dslWriter.writeToFile(join(__dirname, '../specification.txt'));
+
+		const newFileName = fileName || dslWriter.getAlternativeFileName();
+		dslWriter.writeToFile(
+			join(__dirname, `../../specifications/${newFileName}.dmap`)
+		);
 		return res.send('Specification generated');
 	}
 }

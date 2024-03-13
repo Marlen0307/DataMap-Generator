@@ -4,6 +4,13 @@ import { Schema } from '../types/Schema';
 
 export type ParamterPlace = 'requestBody' | 'path' | 'responseBody' | 'query';
 
+const typeOfApplicationContents = new Set([
+	'application/json',
+	'application/xml',
+	'application/x-www-form-urlencoded',
+	'application/octet-stream',
+]);
+
 export interface FormattedParam {
 	usedIn: ParamterPlace;
 	type: string;
@@ -29,7 +36,18 @@ export class FormattedService {
 		this.fillSchemas();
 		this.fillParameters();
 	}
-	fillParameters() {
+
+	private getApplicationContentType(content: Record<string, unknown>): object {
+		let contentType = 'application/json'; // default content type
+		Array.from(Object.keys(content)).forEach((key) => {
+			if (typeOfApplicationContents.has(key)) {
+				contentType = key;
+				return;
+			}
+		});
+		return content[contentType] as object;
+	}
+	private fillParameters() {
 		const paths = Object.keys(this.spec.paths);
 		paths.forEach((path) => {
 			const methods = Object.keys(this.spec.paths[path]);
@@ -82,8 +100,11 @@ export class FormattedService {
 				});
 				const requestBody = this.spec.paths[path][method].requestBody;
 				if (requestBody) {
-					const requestBodySchema =
-						requestBody.content['application/json'].schema; //TODO: handle other content types
+					let requestApplicationContent = this.getApplicationContentType(
+						requestBody.content
+					);
+					let requestBodySchema = requestApplicationContent['schema'];
+
 					if (requestBodySchema) {
 						const schemaUrl = requestBodySchema['$ref'];
 						if (schemaUrl) {
