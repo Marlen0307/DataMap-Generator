@@ -28,6 +28,6 @@ export class SpecificationService {
 		dslWriter.writeToFile(
 			join(__dirname, `../../specifications/${newFileName}.dmap`)
 		);
-		return res.send('Specification generated');
+		return res.status(200).send('Specification generated');
 	}
 }
