@@ -18,7 +18,7 @@ A Node.js application used for generating a DataMap specification for service - 
 
 ## Steps for generating a DataMap specification
 1. Run the application as described in [Instructions section](#instructions-for-running-the-datamap-generator)
-2. Send a POST request to the 'http://localhost:8000/specification/generate' with the following request body:
+2. Send a POST request to the `http://localhost:8000/specification/generate` with the following request body:
 ```json
 {
     "urls" : [
