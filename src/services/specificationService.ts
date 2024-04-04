@@ -1,14 +1,15 @@
 import { Response } from 'express';
 import { injectable } from 'tsyringe';
 import HttpService from './httpService';
+import fs from 'node:fs';
 import 'reflect-metadata';
 import { OpenApiSpec } from '../types/OpenApiSpec';
-// import { MarkdownWriter } from '../models/MarkdownWriter';
 import { join } from 'path';
 import { OpenAPIToDSLConverter } from '../models/DSLWriter';
 import { FormattedService } from '../models/FormattedService';
 @injectable()
 export class SpecificationService {
+	_specificationFolder = join(__dirname, '../../specifications');
 	constructor() {}
 
 	async generateSpecification(
@@ -24,10 +25,16 @@ export class SpecificationService {
 			dslWriter.convertFormattedService(formattedService);
 		}
 
-		const newFileName = fileName || dslWriter.getAlternativeFileName();
-		dslWriter.writeToFile(
-			join(__dirname, `../../specifications/${newFileName}.dmap`)
-		);
-		return res.status(200).send('Specification generated');
+		try {
+			if (!fs.existsSync(this._specificationFolder)) {
+				fs.mkdirSync(this._specificationFolder);
+			}
+			const newFileName = fileName || dslWriter.getAlternativeFileName();
+			const filePath = `${this._specificationFolder}/${newFileName}.dmap`;
+			dslWriter.writeToFile(filePath);
+			return res.status(200).send('Specification generated');
+		} catch (e) {
+			return res.status(500).send('Error generating specification');
+		}
 	}
 }
