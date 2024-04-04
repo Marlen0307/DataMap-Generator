@@ -17,7 +17,7 @@ A Node.js application used for generating a DataMap specification for service - 
 - Your services should expose an OpenApi specification file written in JSON, which is reachable through HTTP
 
 ## Steps for generating a DataMap specification
-1. Run the application as described in [Go to Real Cool Heading section](#instructions-for-running-the-dataMap-generator)
+1. Run the application as described in [Instructions section](#instructions-for-running-the-datamap-generator)
 2. Send a POST request to the 'http://localhost:8000/specification/generate' with the following request body:
 ```json
 {
