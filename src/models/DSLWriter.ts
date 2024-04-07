@@ -56,7 +56,7 @@ export class OpenAPIToDSLConverter {
 		params.forEach((param, paramName) => {
 			paramsDSL += `				"${paramName}"${this.getPrimitiveParamType(param)}${
 				param.description ? ` | ${param.description}` : ''
-			}${this.genereateSpecForSingleParam(param)}\n`;
+			}${this.generateSpecForSingleParam(param)}\n`;
 		});
 
 		return paramsDSL;
@@ -73,7 +73,7 @@ export class OpenAPIToDSLConverter {
 		return '';
 	}
 
-	private genereateSpecForSingleParam(param: FormattedParam): string {
+	private generateSpecForSingleParam(param: FormattedParam): string {
 		let paramDSL = '';
 		if (param.schema) {
 			paramDSL += `${this.convertSchema(param.schema)}`;

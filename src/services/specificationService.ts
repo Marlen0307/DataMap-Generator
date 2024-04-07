@@ -27,6 +27,7 @@ export class SpecificationService {
 
 		try {
 			if (!fs.existsSync(this._specificationFolder)) {
+				//create the folder if it does not exist
 				fs.mkdirSync(this._specificationFolder);
 			}
 			const newFileName = fileName || dslWriter.getAlternativeFileName();

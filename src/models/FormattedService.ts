@@ -2,7 +2,7 @@ import { constructor } from 'tsyringe/dist/typings/types';
 import { OpenApiSpec } from '../types/OpenApiSpec';
 import { Schema } from '../types/Schema';
 
-export type ParamterPlace = 'requestBody' | 'path' | 'responseBody' | 'query';
+export type ParameterPlace = 'requestBody' | 'path' | 'responseBody' | 'query';
 
 const typeOfApplicationContents = new Set([
 	'application/json',
@@ -12,7 +12,7 @@ const typeOfApplicationContents = new Set([
 ]);
 
 export interface FormattedParam {
-	usedIn: ParamterPlace;
+	usedIn: ParameterPlace;
 	type: string;
 	format?: string;
 	description?: string;
@@ -49,14 +49,14 @@ export class FormattedService {
 	}
 	private fillParameters() {
 		const paths = Object.keys(this.spec.paths);
-		paths.forEach((path) => {
+		paths?.forEach((path) => {
 			const methods = Object.keys(this.spec.paths[path]);
 			const methodsMap: FormatedMethods = new Map();
-			methods.forEach((method) => {
+			methods?.forEach((method) => {
 				const formattedParams: FormattedParams = new Map();
-				const addParamter = (
+				const addParameter = (
 					name: string,
-					usedIn: ParamterPlace,
+					usedIn: ParameterPlace,
 					type: string,
 					schema: Schema,
 					description?: string,
@@ -78,18 +78,18 @@ export class FormattedService {
 						if (schemaUrl) {
 							// param is an object and holds a reference to a schema
 							const schema = this.schemas.get(schemaUrl);
-							addParamter(
+							addParameter(
 								param.name,
-								param.in as ParamterPlace, // in this case can only be 'path' or 'query'
+								param.in as ParameterPlace, // in this case can only be 'path' or 'query'
 								'object', // in this case can only be 'object' since it is refering to a schema
 								schema,
 								param?.description
 							);
 						} else {
 							//param is a primitive
-							addParamter(
+							addParameter(
 								param.name,
-								param.in as ParamterPlace, // in this case can only be 'path' or 'query'
+								param.in as ParameterPlace, // in this case can only be 'path' or 'query'
 								param.schema.type,
 								undefined, // no schema since it is a primitive
 								param?.description,
@@ -110,7 +110,7 @@ export class FormattedService {
 						if (schemaUrl) {
 							const schemaName = schemaUrl.split('/').pop();
 							const schema = this.schemas.get(schemaUrl);
-							addParamter(
+							addParameter(
 								schemaName,
 								'requestBody',
 								'object',
@@ -140,7 +140,7 @@ export class FormattedService {
 							if (schemaUrl) {
 								const schemaName = schemaUrl.split('/').pop();
 								const schema = this.schemas.get(schemaUrl);
-								addParamter(
+								addParameter(
 									schemaName,
 									'responseBody',
 									'object',
@@ -151,7 +151,7 @@ export class FormattedService {
 								schemaUrl = responseSchema.items['$ref'];
 								const schemaName = schemaUrl.split('/').pop();
 								const schema = this.schemas.get(schemaUrl);
-								addParamter(
+								addParameter(
 									schemaName,
 									'responseBody',
 									'array',
@@ -159,7 +159,7 @@ export class FormattedService {
 									schema.description
 								);
 							} else {
-								addParamter(
+								addParameter(
 									`${operationId}_response_${code}`,
 									'responseBody',
 									responseSchema.type,
@@ -184,7 +184,7 @@ export class FormattedService {
 		}
 		const schemaNames = Object.keys(this.spec.components.schemas);
 		schemaNames.forEach((schemaName) => {
-			const schema = this.spec.components?.schemas?.[schemaName];
+			const schema = this.spec.components.schemas[schemaName];
 			if (schema) {
 				this.schemas.set(this.buildSchemaPath(schemaName), schema);
 			}
