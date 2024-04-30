@@ -5,8 +5,8 @@ import fs from 'node:fs';
 import 'reflect-metadata';
 import { OpenApiSpec } from '../types/OpenApiSpec';
 import { join } from 'path';
-import { OpenAPIToDSLConverter } from '../models/DSLWriter';
 import { FormattedService } from '../models/FormattedService';
+import { OpenAPIToDSLConverter } from '../models/OpenApiToDslConverter';
 @injectable()
 export class SpecificationService {
 	_specificationFolder = join(__dirname, '../../specifications');
