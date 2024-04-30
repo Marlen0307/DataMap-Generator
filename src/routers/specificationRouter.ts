@@ -7,10 +7,6 @@ const router = Router();
 
 const specificationService = container.resolve(SpecificationService);
 
-router.get('/', (req, res) => {
-	res.send('Hello Specification');
-});
-
 router.post('/generate', (req, res) => {
 	const { body } = req;
 
